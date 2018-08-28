@@ -56,7 +56,7 @@ def link_spider(tag):
             "Mozilla/5.0 (Windows NT 6.0) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.36 Safari/536.5",]
     ua = random.choice(ua_list)
 
-    while page < 6:
+    while True:
         url_book = 'https://book.douban.com/tag/' + key + '?start='+ str(page * 20) + '&type=T'
         headers_book = {
             'Accept': r"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8" ,
