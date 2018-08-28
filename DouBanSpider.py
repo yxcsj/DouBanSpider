@@ -56,7 +56,7 @@ def link_spider(tag):
             "Mozilla/5.0 (Windows NT 6.0) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.36 Safari/536.5",]
     ua = random.choice(ua_list)
 
-    while True:
+    while page < 6:
         url_book = 'https://book.douban.com/tag/' + key + '?start='+ str(page * 20) + '&type=T'
         headers_book = {
             'Accept': r"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8" ,
@@ -127,7 +127,7 @@ def book_spier(links):
                 'Upgrade-Insecure-Requests': '1',
                 'User-Agent': random.choice(ua_list),
             }
-            sleep(random.uniform(0, 2))  # 随机时间休息
+            sleep(random.uniform(1, 2))  # 随机时间休息
             html = requests.get(link, headers = headers).text
 
             #书名
@@ -167,7 +167,7 @@ def book_spier(links):
                 score = re.findall(pat7, html, re.S)[0].strip()
                 # 评论数
                 pat8 = '"v:votes">(.*?)</span>人评价'
-                num = re.findall(pat8, html, re.S)[0].strip()
+                num = int(re.findall(pat8, html, re.S)[0].strip())
             else:
                 score = 0.0
                 num = 0
@@ -199,7 +199,7 @@ def pipelines(tags):
     '''
     将所有图书数据存到一个excel中，并且每个标签分别存到一个sheet中；
     '''
-    writer = pd.ExcelWriter(r'/Users/leiw/Desktop/doubanbook.xlsx')
+    writer = pd.ExcelWriter('doubanbook.xlsx')
 
     for i in range(len(tags)):
         tag = tags[i]
